@@ -943,8 +943,13 @@ async function loadGuests() {
       return eventName + " — " + (a.invitation_category || "Not Assigned");
     }).filter(Boolean);
 
-    const invitationUrl = new URL("index.html", window.location.href);
-    invitationUrl.searchParams.set("token", guest.access_token || "");
+    
+const invitationUrl = new URL(
+    "https://awaisjawa6.github.io/royal-wedding/index.html"
+);
+invitationUrl.searchParams.set("token", guest.access_token || "");
+const link = invitationUrl.toString();
+
     const link = invitationUrl.toString();
 
     
