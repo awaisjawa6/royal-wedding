@@ -1,0 +1,2570 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Awais | Wedding Invitation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --emerald:#092D25;
+    --emerald2:#164537;
+    --emerald3:#204E3D;
+    --gold:#C6A15B;
+    --gold-light:#EBD49C;
+    --ivory:#F5EBD8;
+    --rose:#A66D65;
+    --dark:#061B15;
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body {
+    background:var(--emerald);
+    color:var(--ivory);
+    font-family:'Cormorant Garamond',serif;
+}
+
+button,input,textarea,select {
+    font:inherit;
+}
+
+button,a {
+    -webkit-tap-highlight-color:transparent;
+}
+
+/* =================================
+   WELCOME SCREEN
+================================= */
+
+.welcome {
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    overflow:hidden;
+    padding:35px 15px;
+    background:radial-gradient(ellipse at center,#315D49,#163D30 48%,#061D17);
+}
+
+.welcome::before {
+    content:"";
+    position:absolute;
+    inset:15px;
+    border:1px solid #C6A15B66;
+    pointer-events:none;
+}
+
+.welcome::after {
+    content:"";
+    position:absolute;
+    inset:22px;
+    border:1px solid #C6A15B30;
+    pointer-events:none;
+}
+
+.top-text {
+    font-family:'Cinzel',serif;
+    color:var(--gold-light);
+    font-size:11px;
+    letter-spacing:5px;
+    text-align:center;
+    margin-bottom:12px;
+}
+
+.heading {
+    font-family:'Cinzel',serif;
+    color:var(--ivory);
+    font-size:clamp(23px,4vw,36px);
+    font-weight:400;
+    text-align:center;
+    letter-spacing:3px;
+}
+
+.subtitle {
+    font-size:19px;
+    font-style:italic;
+    color:var(--gold-light);
+    margin:10px 0 35px;
+    text-align:center;
+}
+
+.scene {
+    width:min(420px,88vw);
+    height:min(530px,112vw);
+    max-height:530px;
+    position:relative;
+    perspective:1700px;
+    filter:drop-shadow(0 25px 35px #0009);
+}
+
+.arch-frame {
+    position:absolute;
+    inset:0;
+    padding:12px;
+    background:linear-gradient(130deg,#9A753D,#F0DDAA,#B38A49,#E5CB8E);
+    border-radius:210px 210px 4px 4px;
+}
+
+.arch-inner {
+    height:100%;
+    width:100%;
+    position:relative;
+    overflow:hidden;
+    background:#D8C19A;
+    border:3px solid #8F713E;
+    border-radius:195px 195px 0 0;
+}
+
+.arch-outline {
+    position:absolute;
+    inset:9px;
+    border:1px solid #F0D99F;
+    border-radius:185px 185px 0 0;
+    z-index:6;
+    pointer-events:none;
+}
+
+.arch-outline::before {
+    content:"";
+    position:absolute;
+    inset:8px;
+    border:1px solid #A47D40;
+    border-radius:175px 175px 0 0;
+}
+
+.inner-light {
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:radial-gradient(ellipse,#F8E7C5,#D7B779 50%,#8A6A3C);
+}
+
+.inner-light p {
+    color:#604923;
+    font-family:'Cinzel',serif;
+    font-size:19px;
+    line-height:2;
+    letter-spacing:3px;
+}
+
+.door {
+    position:absolute;
+    top:0;
+    width:50%;
+    height:100%;
+    z-index:4;
+    background:linear-gradient(90deg,#061D17,#164333 45%,#0C3025);
+    transform-style:preserve-3d;
+    transition:transform 2.6s cubic-bezier(.72,0,.22,1);
+}
+
+.door-left {
+    left:0;
+    transform-origin:left center;
+    border-right:2px solid var(--gold);
+}
+
+.door-right {
+    right:0;
+    transform-origin:right center;
+    border-left:2px solid var(--gold);
+}
+
+.door-panel {
+    position:absolute;
+    inset:12px 9px;
+    border:1px solid var(--gold);
+}
+
+.door-panel::before {
+    content:"";
+    position:absolute;
+    inset:10px;
+    border:1px solid #9D7941;
+}
+
+.door-panel::after {
+    content:"";
+    position:absolute;
+    left:14px;
+    right:14px;
+    top:35%;
+    bottom:15%;
+    border:1px solid #B58D4E;
+}
+
+.door-arch {
+    position:absolute;
+    top:40px;
+    left:50%;
+    transform:translateX(-50%);
+    width:72%;
+    height:46%;
+    border:1px solid #D5B16C;
+    border-radius:110px 110px 2px 2px;
+}
+
+.door-arch::before {
+    content:"";
+    position:absolute;
+    inset:7px;
+    border:1px solid #98723D;
+    border-radius:100px 100px 0 0;
+}
+
+.door-arch::after {
+    content:"✧";
+    position:absolute;
+    top:45%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:36px;
+    color:var(--gold-light);
+}
+
+.lower-detail {
+    position:absolute;
+    bottom:18%;
+    left:50%;
+    transform:translateX(-50%);
+    width:55%;
+    height:23%;
+    border:1px solid var(--gold);
+}
+
+.lower-detail::before {
+    content:"✧";
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    color:var(--gold-light);
+    font-size:32px;
+}
+
+.door-name {
+    position:absolute;
+    bottom:6%;
+    width:100%;
+    text-align:center;
+    color:var(--gold-light);
+    font-family:'Cinzel',serif;
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+.handle {
+    position:absolute;
+    top:56%;
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,#FFF0BE,#C6A15B,#785328);
+    box-shadow:0 0 12px #EBD49C77;
+}
+
+.door-left .handle {right:8px}
+.door-right .handle {left:8px}
+
+.floral-side {
+    position:absolute;
+    top:8%;
+    bottom:2%;
+    width:35px;
+    z-index:7;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-around;
+    align-items:center;
+    color:#E9D8BA;
+    text-shadow:0 0 10px #D7B779;
+    font-size:22px;
+    pointer-events:none;
+}
+
+.floral-left {left:1px}
+.floral-right {right:1px}
+
+.floral-side span:nth-child(even) {
+    color:#C69B78;
+    font-size:15px;
+}
+
+.floral-side span:nth-child(3) {
+    color:#F2DDB0;
+    font-size:26px;
+}
+
+.seal {
+    position:absolute;
+    top:52%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:9;
+    width:105px;
+    height:105px;
+    border-radius:50%;
+    border:0;
+    cursor:pointer;
+    background:radial-gradient(circle at 32% 25%,#D58D70,#A66D65 35%,#753B3B 80%);
+    box-shadow:0 5px 20px #0009,inset 0 0 0 4px #EBD49C,inset 0 0 0 7px #8E5149,inset 0 0 0 9px #E5C88D;
+    color:#F9E9C4;
+    transition:.5s;
+}
+
+.seal:hover {filter:brightness(1.2)}
+
+.seal span {
+    display:block;
+    font-size:29px;
+    font-style:italic;
+}
+
+.seal small {
+    display:block;
+    font-family:'Cinzel',serif;
+    font-size:7px;
+    letter-spacing:1px;
+    margin-top:4px;
+}
+
+.seal.break {
+    animation:sealBreak .7s forwards;
+    pointer-events:none;
+}
+
+@keyframes sealBreak {
+    40% {transform:translate(-50%,-50%) scale(1.2) rotate(-12deg)}
+    100% {transform:translate(-50%,-50%) scale(.1) rotate(35deg);opacity:0}
+}
+
+.opened .door-left {transform:rotateY(-115deg)}
+.opened .door-right {transform:rotateY(115deg)}
+
+.instruction {
+    margin-top:30px;
+    color:var(--gold-light);
+    font-family:'Cinzel',serif;
+    font-size:10px;
+    letter-spacing:3px;
+    animation:pulse 2.5s infinite;
+}
+
+@keyframes pulse {
+    50% {opacity:.5}
+}
+
+/* =================================
+   MAIN INVITATION
+================================= */
+
+.main-site {
+    display:none;
+    overflow:hidden;
+}
+
+.main-site.visible {
+    display:block;
+    animation:pageEnter 1.4s ease;
+}
+
+@keyframes pageEnter {
+    from {opacity:0;transform:translateY(25px)}
+    to {opacity:1;transform:translateY(0)}
+}
+
+/* NAVIGATION */
+
+.navbar {
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:#08271ff2;
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid #C6A15B55;
+    padding:14px 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand {
+    color:var(--gold-light);
+    font-family:'Cinzel',serif;
+    font-size:17px;
+    letter-spacing:2px;
+}
+
+.nav-links {
+    display:flex;
+    gap:25px;
+    align-items:center;
+}
+
+.nav-links a {
+    color:var(--ivory);
+    text-decoration:none;
+    font-size:15px;
+    transition:.3s;
+}
+
+.nav-links a:hover {color:var(--gold-light)}
+
+.menu-btn {
+    display:none;
+    background:none;
+    border:1px solid var(--gold);
+    color:var(--gold-light);
+    padding:6px 12px;
+    cursor:pointer;
+}
+
+/* COMMON SECTION */
+
+.section {
+    padding:100px 7%;
+    position:relative;
+}
+
+.section-heading {
+    text-align:center;
+    margin-bottom:55px;
+}
+
+.eyebrow {
+    font-family:'Cinzel',serif;
+    font-size:10px;
+    color:var(--gold);
+    letter-spacing:5px;
+    margin-bottom:14px;
+}
+
+.section-heading h2 {
+    font-family:'Cinzel',serif;
+    font-size:clamp(28px,5vw,43px);
+    color:var(--gold-light);
+    font-weight:400;
+}
+
+.ornament {
+    color:var(--gold);
+    font-size:27px;
+    margin-top:15px;
+}
+
+.divider {
+    width:140px;
+    height:1px;
+    margin:22px auto;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+
+/* INTRODUCTION */
+
+.intro {
+    min-height:660px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:
+    linear-gradient(#092D25c9,#092D25e8),
+    url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1600');
+    background-size:cover;
+    background-position:center;
+}
+
+.intro-content {
+    max-width:800px;
+}
+
+.bismillah {
+    font-family:'Amiri',serif;
+    color:var(--gold-light);
+    font-size:35px;
+    margin-bottom:25px;
+}
+
+.intro-content h2 {
+    font-family:'Cinzel',serif;
+    color:var(--ivory);
+    font-size:clamp(34px,7vw,65px);
+    font-weight:400;
+    margin:20px 0;
+}
+
+.intro-content .amp {
+    font-family:'Cormorant Garamond',serif;
+    font-size:45px;
+    font-style:italic;
+    color:var(--gold);
+}
+
+.intro-content p {
+    font-size:21px;
+    line-height:1.8;
+}
+
+.intro-names {
+    color:var(--gold-light);
+}
+
+/* COUNTDOWN */
+
+.countdown-section {
+    background:linear-gradient(130deg,#0c3328,#09241d);
+    text-align:center;
+    border-top:1px solid #C6A15B44;
+    border-bottom:1px solid #C6A15B44;
+}
+
+.countdown {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    max-width:750px;
+    margin:auto;
+    gap:18px;
+}
+
+.count-box {
+    padding:28px 10px;
+    border:1px solid #C6A15B77;
+    background:linear-gradient(145deg,#164537,#0b2a21);
+    box-shadow:inset 0 0 20px #0002;
+}
+
+.count-box strong {
+    display:block;
+    font-family:'Cinzel',serif;
+    font-size:clamp(30px,5vw,48px);
+    color:var(--gold-light);
+    font-weight:400;
+}
+
+.count-box span {
+    display:block;
+    color:var(--ivory);
+    font-size:13px;
+    letter-spacing:2px;
+    margin-top:8px;
+}
+
+/* EVENTS */
+
+.events-section {
+    background:#0b3026;
+}
+
+.events-grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:30px;
+    max-width:1050px;
+    margin:auto;
+}
+
+.event-card {
+    position:relative;
+    min-height:370px;
+    overflow:hidden;
+    border:1px solid #C6A15B88;
+    background:#12382c;
+    transition:.5s;
+}
+
+.event-card:hover {
+    transform:translateY(-9px);
+    box-shadow:0 20px 35px #0005;
+    border-color:var(--gold-light);
+}
+
+.event-image {
+    height:210px;
+    overflow:hidden;
+    position:relative;
+    background:linear-gradient(135deg,#164537,#092D25);
+}
+
+.event-image img {
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    transition:transform .8s ease,filter .8s ease;
+}
+
+.event-card:hover .event-image img {
+    transform:scale(1.07);
+    filter:brightness(1.08);
+}
+
+.event-image.image-fallback::after {
+    content:"Wedding Celebration";
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--gold-light);
+    font-family:'Cinzel',serif;
+    letter-spacing:2px;
+    font-size:13px;
+}
+
+.event-info {
+    position:relative;
+    padding:22px;
+    text-align:center;
+    background:linear-gradient(#164537,#0d3025);
+}
+
+.event-info h3 {
+    color:var(--gold-light);
+    font-family:'Cinzel',serif;
+    font-size:23px;
+    font-weight:400;
+    margin-bottom:10px;
+}
+
+.event-info p {
+    font-size:17px;
+    line-height:1.6;
+}
+
+.event-info .event-date {
+    color:var(--gold);
+    font-family:'Cinzel',serif;
+    font-size:12px;
+    letter-spacing:1px;
+    margin-bottom:8px;
+}
+
+.map-link {
+    display:inline-block;
+    margin-top:13px;
+    color:var(--gold-light);
+    text-decoration:none;
+    border-bottom:1px solid var(--gold);
+    padding-bottom:3px;
+    font-size:15px;
+}
+
+/* VENUE */
+
+.venue-section {
+    background:linear-gradient(135deg,#153e31,#09251d);
+}
+
+.venue-card {
+    max-width:850px;
+    margin:auto;
+    border:1px solid var(--gold);
+    padding:45px 25px;
+    text-align:center;
+    background:#092b22;
+}
+
+.venue-card h3 {
+    color:var(--gold-light);
+    font-family:'Cinzel',serif;
+    font-size:28px;
+    font-weight:400;
+    margin:15px 0;
+}
+
+.venue-card p {
+    font-size:19px;
+    line-height:1.8;
+}
+
+.gold-button {
+    display:inline-block;
+    margin-top:25px;
+    padding:13px 28px;
+    background:linear-gradient(120deg,#ad8545,#edd69d,#ad8545);
+    color:#102d25;
+    text-decoration:none;
+    font-family:'Cinzel',serif;
+    font-size:11px;
+    letter-spacing:2px;
+    border:0;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.gold-button:hover {
+    transform:translateY(-4px);
+    box-shadow:0 8px 20px #C6A15B55;
+}
+
+/* GALLERY */
+
+.gallery-section {
+    background:#08271f;
+}
+
+.gallery-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    max-width:1050px;
+    margin:auto;
+}
+
+.gallery-item {
+    height:290px;
+    overflow:hidden;
+    border:1px solid #C6A15B77;
+    position:relative;
+}
+
+.gallery-item {
+    cursor:zoom-in;
+    background:linear-gradient(135deg,#164537,#092D25);
+}
+
+.gallery-item img {
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .7s ease,filter .7s ease;
+}
+
+.gallery-item:hover img {
+    transform:scale(1.08);
+    filter:brightness(1.08);
+}
+
+.gallery-item.image-fallback::after {
+    content:"Wedding Memory";
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--gold-light);
+    font-family:'Cinzel',serif;
+    letter-spacing:2px;
+    font-size:13px;
+}
+
+
+/* GALLERY LIGHTBOX - added without changing the original theme */
+.gallery-lightbox {
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:999;
+    background:rgba(0,0,0,.92);
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+}
+.gallery-lightbox.show { display:flex; animation:lightboxFade .25s ease; }
+.gallery-lightbox img {
+    max-width:min(92vw,1100px);
+    max-height:88vh;
+    object-fit:contain;
+    border:1px solid var(--gold);
+    box-shadow:0 15px 55px #0009;
+}
+.gallery-lightbox-close {
+    position:absolute;
+    top:15px;
+    right:25px;
+    border:0;
+    background:none;
+    color:var(--gold-light);
+    font-size:42px;
+    cursor:pointer;
+}
+@keyframes lightboxFade { from {opacity:0} to {opacity:1} }
+
+/* RSVP */
+
+.rsvp-section {
+    background:
+    linear-gradient(#092D25ed,#092D25ed),
+    url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1400');
+    background-size:cover;
+    background-position:center;
+}
+
+.rsvp-card {
+    max-width:650px;
+    margin:auto;
+    padding:40px;
+    border:1px solid var(--gold);
+    background:#0b3027;
+    box-shadow:0 15px 45px #0004;
+}
+
+.rsvp-card label {
+    display:block;
+    color:var(--gold-light);
+    margin-bottom:7px;
+    font-size:17px;
+}
+
+.form-group {
+    margin-bottom:20px;
+}
+
+.rsvp-card input,
+.rsvp-card select,
+.rsvp-card textarea {
+    width:100%;
+    padding:13px;
+    color:var(--ivory);
+    background:#123d30;
+    border:1px solid #987B49;
+    outline:none;
+    border-radius:0;
+}
+
+.rsvp-card input:focus,
+.rsvp-card select:focus,
+.rsvp-card textarea:focus {
+    border-color:var(--gold-light);
+}
+
+.rsvp-card select option {
+    background:#123d30;
+}
+
+.rsvp-card textarea {
+    resize:vertical;
+    min-height:90px;
+}
+
+.rsvp-card .gold-button {
+    width:100%;
+}
+
+/* FOOTER */
+
+.footer {
+    padding:45px 20px;
+    text-align:center;
+    background:#061d17;
+    border-top:1px solid #C6A15B55;
+}
+
+.footer h3 {
+    font-family:'Cinzel',serif;
+    font-weight:400;
+    color:var(--gold-light);
+    font-size:22px;
+    margin-bottom:12px;
+}
+
+.footer p {
+    font-size:16px;
+    color:#d9c9a8;
+}
+
+.footer .copyright {
+    margin-top:25px;
+    font-size:12px;
+    color:#a99776;
+}
+
+/* SCROLL REVEAL */
+
+.reveal {
+    opacity:0;
+    transform:translateY(35px);
+    transition:opacity .9s ease,transform .9s ease;
+}
+
+.reveal.active {
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* MOBILE */
+
+@media(max-width:700px) {
+    .navbar {padding:13px 5%}
+    .menu-btn {display:block}
+
+    .nav-links {
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        padding:20px;
+        flex-direction:column;
+        gap:18px;
+        background:#08271f;
+        border-bottom:1px solid var(--gold);
+    }
+
+    .nav-links.show {display:flex}
+
+    .section {padding:75px 6%}
+
+    .events-grid {
+        grid-template-columns:1fr;
+        max-width:480px;
+    }
+
+    .countdown {
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
+    }
+
+    .gallery-grid {
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+    }
+
+    .gallery-item {height:210px}
+
+    .rsvp-card {padding:25px 18px}
+
+    .intro {min-height:580px}
+}
+
+@media(max-width:380px) {
+    .gallery-grid {grid-template-columns:1fr}
+    .gallery-item {height:260px}
+    .count-box {padding:20px 5px}
+}
+
+/* REDUCED MOTION */
+
+@media(prefers-reduced-motion:reduce) {
+    *,*::before,*::after {
+        animation-duration:.01ms!important;
+        transition-duration:.01ms!important;
+        scroll-behavior:auto!important;
+    }
+}
+/* =================================
+   PERSONALIZED GUEST WELCOME
+================================= */
+
+.guest-welcome-section {
+    min-height: 330px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 70px 20px;
+    background: linear-gradient(135deg, #092D25, #164537);
+    text-align: center;
+}
+
+.guest-welcome {
+    width: 100%;
+    max-width: 750px;
+    padding: 45px 30px;
+    border: 1px solid #C6A15B;
+    outline: 1px solid rgba(198,161,91,0.35);
+    outline-offset: 8px;
+    border-radius: 4px;
+    color: #F5EBD8;
+    background: rgba(255,255,255,0.035);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.2);
+}
+
+.guest-welcome h2 {
+    color: #EBD49C;
+    font-family: Georgia, serif;
+    font-size: clamp(25px, 4vw, 38px);
+    font-weight: 500;
+    margin: 0 0 22px;
+    letter-spacing: 1px;
+}
+
+.guest-welcome p {
+    color: #F5EBD8;
+    font-size: 16px;
+    line-height: 1.9;
+    max-width: 600px;
+    margin: auto;
+}
+
+@media (max-width: 600px) {
+    .guest-welcome-section {
+        min-height: 280px;
+        padding: 50px 22px;
+    }
+
+    .guest-welcome {
+        padding: 35px 20px;
+    }
+}
+/* ROYAL WELCOME ENTRANCE ANIMATION */
+
+.guest-welcome {
+    animation: guestWelcomeReveal 1.3s ease-out both;
+}
+
+@keyframes guestWelcomeReveal {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.guest-welcome h2 {
+    animation: guestNameReveal 1.5s ease-out both;
+    animation-delay: 0.3s;
+}
+
+@keyframes guestNameReveal {
+    from {
+        opacity: 0;
+        letter-spacing: 5px;
+    }
+
+    to {
+        opacity: 1;
+        letter-spacing: 1px;
+    }
+}
+.welcome-ornament {
+    color: #EBD49C;
+    font-size: 30px;
+    letter-spacing: 9px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 12px rgba(198,161,91,0.4);
+    animation: ornamentGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes ornamentGlow {
+    from {
+        opacity: 0.65;
+        text-shadow: 0 0 5px rgba(198,161,91,0.2);
+    }
+
+    to {
+        opacity: 1;
+        text-shadow: 0 0 18px rgba(198,161,91,0.7);
+    }
+}
+
+/* ==========================================
+   ROYAL WEDDING EVENT CARDS
+========================================== */
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+    align-items: stretch;
+}
+
+.royal-event-card {
+    overflow: hidden;
+    border: 1px solid #C6A15B;
+    border-radius: 12px;
+    background: #F5EBD8;
+    box-shadow: 0 12px 35px rgba(9,45,37,0.12);
+    transition: transform .35s ease, box-shadow .35s ease;
+}
+
+.royal-event-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(9,45,37,0.2);
+}
+
+.royal-event-card .event-image {
+    height: 290px;
+    overflow: hidden;
+    position: relative;
+}
+
+.royal-event-card .event-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.event-artwork {
+    height: 100%;
+    min-height: 290px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 25px;
+    box-sizing: border-box;
+    color: #EBD49C;
+    background: linear-gradient(145deg, #092D25, #164537);
+}
+
+.nikah-theme .event-artwork {
+    background: linear-gradient(145deg, #F5EBD8, #DCC79D);
+    color: #092D25;
+}
+
+.barat-theme .event-artwork {
+    background: linear-gradient(145deg, #092D25, #071E19);
+}
+
+.walima-theme .event-artwork {
+    background: linear-gradient(145deg, #EBD49C, #F5EBD8);
+    color: #76572B;
+}
+
+.event-art-ornament {
+    font-size: 24px;
+    letter-spacing: 5px;
+    margin: 12px 0;
+}
+
+.event-art-icon {
+    font-size: 48px;
+    margin: 12px 0;
+}
+
+.event-art-title {
+    font-family: Georgia, serif;
+    font-size: 32px;
+    font-style: italic;
+    margin: 10px 0;
+}
+
+.event-art-subtitle {
+    font-family: Georgia, serif;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.royal-event-card .event-info {
+    padding: 25px;
+    text-align: center;
+}
+
+.event-small-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #A66D65;
+}
+
+.event-card-heading h3 {
+    color: #092D25;
+    font-family: Georgia, serif;
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+.event-card-divider {
+    color: #C6A15B;
+    font-size: 15px;
+    margin: 12px 0;
+}
+
+.event-tagline {
+    color: #76572B;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.event-details {
+    margin: 22px 0;
+    text-align: left;
+}
+
+.event-detail-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    border-bottom: 1px solid rgba(198,161,91,.3);
+    padding: 10px 0;
+}
+
+.event-detail-row span {
+    color: #A66D65;
+    min-width: 18px;
+}
+
+.event-detail-row p {
+    margin: 0;
+    color: #164537;
+    font-size: 14px;
+}
+
+.royal-event-card .invitation-category {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding: 14px;
+    margin: 18px 0;
+    border: 1px solid #C6A15B;
+    border-radius: 7px;
+    background: rgba(198,161,91,.12);
+}
+
+.invitation-category span {
+    color: #76572B;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.invitation-category strong {
+    color: #092D25;
+    font-family: Georgia, serif;
+    font-size: 17px;
+}
+
+.royal-event-card .map-link {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #092D25;
+    color: #EBD49C;
+    border: 1px solid #C6A15B;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 1px;
+    transition: .3s ease;
+}
+
+.royal-event-card .map-link:hover {
+    background: #C6A15B;
+    color: #092D25;
+}
+
+@media (max-width: 700px) {
+    .events-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .royal-event-card .event-image {
+        height: 260px;
+    }
+
+    .royal-event-card .event-info {
+        padding: 20px;
+    }
+}
+
+/* EVENT CARD IVORY TEXT FIX */
+
+.royal-event-card {
+    background: #092D25 !important;
+    color: #F5EBD8 !important;
+}
+
+.royal-event-card .event-info {
+    background: #092D25 !important;
+    color: #F5EBD8 !important;
+}
+
+.royal-event-card .event-card-heading h3,
+.royal-event-card .event-detail-row p,
+.royal-event-card .event-tagline,
+.royal-event-card .invitation-category strong {
+    color: #F5EBD8 !important;
+}
+
+.royal-event-card .event-small-label,
+.royal-event-card .event-detail-row span,
+.royal-event-card .event-card-divider,
+.royal-event-card .invitation-category span {
+    color: #EBD49C !important;
+}
+
+.royal-event-card .invitation-category {
+    background: rgba(245,235,216,0.08) !important;
+    border-color: #C6A15B !important;
+}
+
+.royal-event-card .event-artwork,
+.royal-event-card .event-artwork * {
+    color: #F5EBD8 !important;
+}
+
+.royal-event-card .event-artwork {
+    background: linear-gradient(145deg, #092D25, #164537) !important;
+}
+
+/* WEDDING ASSISTANCE */
+
+.assistance-section {
+    background: #092D25;
+    padding: 85px 20px;
+}
+
+.assistance-section .section-heading p {
+    color: #F5EBD8;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.assistance-contacts {
+    max-width: 850px;
+    margin: 35px auto 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.assistance-contact-card {
+    background: linear-gradient(135deg, #164537, #092D25);
+    border: 1px solid #C6A15B;
+    padding: 25px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 8px 25px #00000030;
+}
+
+.assistance-contact-card h3 {
+    color: #EBD49C;
+    font-family: 'Cinzel', serif;
+    font-size: 17px;
+    margin-bottom: 12px;
+}
+
+.assistance-contact-card a {
+    color: #F5EBD8;
+    text-decoration: none;
+    font-size: 16px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 10px 18px;
+    border: 1px solid #C6A15B;
+    transition: .3s ease;
+}
+
+.assistance-contact-card a:hover {
+    background: #C6A15B;
+    color: #092D25;
+}
+
+@media (max-width: 600px) {
+    .assistance-contacts {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- WELCOME SCREEN -->
+
+<section class="welcome" id="welcome">
+
+    <div class="top-text">
+        بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+    </div>
+
+    <h1 class="heading">A Royal Wedding Invitation</h1>
+
+    <p class="subtitle">A beautiful beginning, blessed by Allah</p>
+
+    <div class="scene" id="scene">
+        <div class="arch-frame">
+            <div class="arch-inner">
+
+                <div class="inner-light">
+                    <p>THE BEGINNING<br>OF A BEAUTIFUL JOURNEY</p>
+                </div>
+
+                <div class="door door-left">
+                    <div class="door-panel">
+                        <div class="door-arch"></div>
+                        <div class="lower-detail"></div>
+                        <div class="door-name">MUHAMMAD AWAIS</div>
+                    </div>
+                    <div class="handle"></div>
+                </div>
+
+                <div class="door door-right">
+                    <div class="door-panel">
+                        <div class="door-arch"></div>
+                        <div class="lower-detail"></div>
+                        <div class="door-name">WEDDING INVITATION</div>
+                    </div>
+                    <div class="handle"></div>
+                </div>
+
+                <div class="arch-outline"></div>
+
+                <div class="floral-side floral-left">
+                    <span>✿</span><span>✧</span>
+                    <span>❀</span><span>✧</span>
+                    <span>✿</span><span>❀</span>
+                </div>
+
+                <div class="floral-side floral-right">
+                    <span>✿</span><span>✧</span>
+                    <span>❀</span><span>✧</span>
+                    <span>✿</span><span>❀</span>
+                </div>
+
+                <button class="seal" id="seal" onclick="openInvitation()">
+                    <span>M & A</span>
+                    <small>SEALED WITH LOVE</small>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <p class="instruction">✦ TOUCH THE GOLDEN SEAL TO ENTER ✦</p>
+
+</section>
+
+<!-- MAIN WEBSITE -->
+
+<main class="main-site" id="mainSite">
+
+    <!-- NAVIGATION -->
+
+    <nav class="navbar">
+
+        <div class="brand">M & A</div>
+
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+        <div class="nav-links" id="navLinks">
+            <a href="#home" onclick="closeMenu()">Home</a>
+            <a href="#countdown" onclick="closeMenu()">Countdown</a>
+            <a href="#events" onclick="closeMenu()">Events</a>
+            <a href="#gallery" onclick="closeMenu()">Gallery</a>
+            <a href="#rsvp" onclick="closeMenu()">RSVP</a>
+        </div>
+
+    </nav>
+<!-- PERSONALIZED GUEST WELCOME -->
+<section class="section guest-welcome-section" id="guestWelcomeSection">
+
+    <div class="guest-welcome" id="guestWelcome" style="display:none;">
+<div class="welcome-ornament">✧ ❦ ✧</div>
+        <h2 id="guestWelcomeName"></h2>
+
+        <p>
+            Your presence at our celebration would be a matter of immense joy
+            and honour for us. We would be truly delighted to share these
+            precious moments with you.
+        </p>
+
+    </div>
+
+</section>
+   
+<!-- BRIDE & GROOM -->
+
+<section class="section intro" id="home">
+
+    <div class="intro-content reveal">
+
+        <div class="bismillah">
+            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+        </div>
+
+        <p>In the name of Allah, the Most Merciful</p>
+
+        <div class="divider"></div>
+
+        <p>With the blessings of Allah Almighty</p>
+
+        <h2>Muhammad Awais</h2>
+
+        <div class="amp">&</div>
+
+        <h2>Daughter of [Father's Name]</h2>
+
+        <div class="ornament">✧ ❦ ✧</div>
+
+        <p>
+            Together with their families,<br>
+            request the honour of your presence<br>
+            and blessings on this joyous occasion.
+        </p>
+
+    </div>
+
+</section>
+
+
+    <!-- COUNTDOWN -->
+
+    <section class="section countdown-section" id="countdown">
+
+        <div class="section-heading reveal">
+            <div class="eyebrow">THE BIG DAY</div>
+            <h2>Counting Our Blessings</h2>
+            <div class="ornament">✧</div>
+        </div>
+
+        <div class="countdown reveal">
+
+            <div class="count-box">
+                <strong id="days">00</strong>
+                <span>DAYS</span>
+            </div>
+
+            <div class="count-box">
+                <strong id="hours">00</strong>
+                <span>HOURS</span>
+            </div>
+
+            <div class="count-box">
+                <strong id="minutes">00</strong>
+                <span>MINUTES</span>
+            </div>
+
+            <div class="count-box">
+                <strong id="seconds">00</strong>
+                <span>SECONDS</span>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- EVENTS -->
+
+    <section class="section events-section" id="events">
+
+        <div class="section-heading reveal">
+            <div class="eyebrow">JOIN OUR CELEBRATIONS</div>
+            <h2>Wedding Events</h2>
+            <div class="ornament">✧ ❦ ✧</div>
+        </div>
+
+        <div class="events-grid">
+
+            <article class="event-card reveal">
+
+                <div class="event-image">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85" alt="Mehndi wedding celebration" loading="eager" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+                </div>
+
+                <div class="event-info">
+                    <h3>Mehndi</h3>
+                    <div class="event-date">22 DECEMBER 2026</div>
+                    <p>6:00 PM onwards</p>
+                    <p>Royal Garden, Lahore</p>
+                    <a class="map-link" target="_blank"
+                    href="https://www.google.com/maps/search/?api=1&query=Royal+Garden+Lahore">
+                    View Location ↗
+                    </a>
+                </div>
+
+            </article>
+
+            <article class="event-card reveal">
+
+                <div class="event-image">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=85" alt="Nikah ceremony" loading="eager" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+                </div>
+
+                <div class="event-info">
+                    <h3>Nikah</h3>
+                    <div class="event-date">23 DECEMBER 2026</div>
+                    <p>11:00 AM</p>
+                    <p>Grand Pearl Hall, Lahore</p>
+                    <a class="map-link" target="_blank"
+                    href="https://www.google.com/maps/search/?api=1&query=Grand+Pearl+Hall+Lahore">
+                    View Location ↗
+                    </a>
+                </div>
+
+            </article>
+
+            <article class="event-card reveal">
+
+                <div class="event-image">
+                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=85" alt="Barat wedding celebration" loading="eager" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+                </div>
+
+                <div class="event-info">
+                    <h3>Barat</h3>
+                    <div class="event-date">24 DECEMBER 2026</div>
+                    <p>7:00 PM onwards</p>
+                    <p>Royal Palace, Lahore</p>
+                    <a class="map-link" target="_blank"
+                    href="https://www.google.com/maps/search/?api=1&query=Royal+Palace+Lahore">
+                    View Location ↗
+                    </a>
+                </div>
+
+            </article>
+
+            <article class="event-card reveal">
+
+                <div class="event-image">
+                    <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1200&q=85" alt="Walima reception" loading="eager" onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+                </div>
+
+                <div class="event-info">
+                    <h3>Walima</h3>
+                    <div class="event-date">25 DECEMBER 2026</div>
+                    <p>7:00 PM onwards</p>
+                    <p>Crystal Marquee, Lahore</p>
+                    <a class="map-link" target="_blank"
+                    href="https://www.google.com/maps/search/?api=1&query=Crystal+Marquee+Lahore">
+                    View Location ↗
+                    </a>
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- VENUE -->
+
+    <section class="section venue-section">
+
+        <div class="section-heading reveal">
+            <div class="eyebrow">CELEBRATE WITH US</div>
+            <h2>Our Wedding Venue</h2>
+            <div class="ornament">✧</div>
+        </div>
+
+        <div class="venue-card reveal">
+
+            <div class="ornament">⌖</div>
+
+            <h3>Crystal Marquee</h3>
+
+            <p>
+                Main Boulevard, Lahore<br>
+                Punjab, Pakistan
+            </p>
+
+            <p style="margin-top:15px;color:#D9C9A8">
+                25 December 2026 · 7:00 PM
+            </p>
+
+            <a class="gold-button"
+            target="_blank"
+            href="https://www.google.com/maps/search/?api=1&query=Crystal+Marquee+Lahore">
+                GET DIRECTIONS
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- GALLERY -->
+
+    <section class="section gallery-section" id="gallery">
+
+        <div class="section-heading reveal">
+            <div class="eyebrow">BEAUTIFUL MOMENTS</div>
+            <h2>Our Gallery</h2>
+            <div class="ornament">✧ ❦ ✧</div>
+        </div>
+
+       <div class="gallery-grid reveal" id="ourGalleryGrid">
+
+    <div class="gallery-item">
+        <div class="gallery-placeholder">
+            Gallery photos will appear here
+        </div>
+    </div>
+
+</div>
+    </section>
+
+
+<!-- WEDDING ASSISTANCE -->
+
+<section class="section assistance-section" id="assistanceSection">
+
+    <div class="section-heading reveal">
+        <div class="eyebrow">WE ARE HERE TO HELP</div>
+        <h2>Wedding Assistance</h2>
+        <div class="ornament">✧ ❦ ✧</div>
+        <p>For any guidance or assistance, please contact our team.</p>
+    </div>
+
+    <div class="assistance-contacts" id="assistanceContacts">
+    </div>
+
+</section>
+
+
+    <!-- GALLERY PHOTO VIEWER -->
+    <div class="gallery-lightbox" id="galleryLightbox" onclick="closeGalleryImage()">
+        <button class="gallery-lightbox-close" type="button" aria-label="Close image"
+        onclick="closeGalleryImage()">×</button>
+        <img id="galleryLightboxImage" src="" alt="Expanded wedding gallery photo">
+    </div>
+
+    <!-- RSVP -->
+
+    <section class="section rsvp-section" id="rsvp">
+
+        <div class="section-heading reveal">
+            <div class="eyebrow">WE WOULD LOVE TO SEE YOU</div>
+            <h2>Kindly Respond</h2>
+            <div class="ornament">✧</div>
+        </div>
+
+        <form class="rsvp-card reveal" id="rsvpForm">
+
+            <div class="form-group">
+                <label for="guestName">Your Full Name</label>
+                <input type="text" id="guestName"
+                placeholder="Enter your name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="guestPhone">Contact Number</label>
+                <input type="tel" id="guestPhone"
+                placeholder="+92 300 1234567" required>
+            </div>
+
+            <div class="form-group">
+                <label for="attendance">Will you attend?</label>
+                <select id="attendance" required>
+                    <option value="">Select your response</option>
+                    <option value="Accept">Joyfully Accept</option>
+                    <option value="Decline">Regretfully Decline</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="eventChoice">Which event will you attend?</label>
+                <select id="eventChoice">
+                    <option>All Wedding Events</option>
+                    <option>Mehndi</option>
+                    <option>Nikah</option>
+                    <option>Barat</option>
+                    <option>Walima</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="guestMessage">A Message for the Couple</label>
+                <textarea id="guestMessage"
+                placeholder="Send your wishes..."></textarea>
+            </div>
+
+            <button class="gold-button" type="submit">
+                SUBMIT RSVP
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <h3>Muhammad Awais</h3>
+
+        <p>May Allah bless this beautiful union with love, peace and barakah.</p>
+
+        <div class="ornament">✧ ❦ ✧</div>
+
+        <p class="copyright">
+            A ROYAL WEDDING CELEBRATION · 2026
+        </p>
+
+    </footer>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<script>
+
+
+/* =========================================
+   SECURE GUEST INVITATION
+========================================= */
+
+let opened = false;
+let guestData = null;
+let allowedEvents = [];
+let weddingDate = null;
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+function showInvitationStatus(message, isError = false) {
+    let panel = document.getElementById("invitationStatus");
+
+    if (!panel) {
+        panel = document.createElement("div");
+        panel.id = "invitationStatus";
+        panel.style.cssText = `
+            position:fixed;
+            inset:0;
+            z-index:3000;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:25px;
+            background:radial-gradient(ellipse at center,#315D49,#163D30 48%,#061D17);
+            text-align:center;
+        `;
+        document.body.appendChild(panel);
+    }
+
+    panel.innerHTML = `
+        <div style="
+            max-width:500px;
+            padding:40px 28px;
+            border:1px solid #C6A15B;
+            background:#092D25;
+            color:#F5EBD8;
+            box-shadow:0 15px 50px #0008;
+        ">
+            <div style="font-size:35px;color:#EBD49C;margin-bottom:20px">
+                ${isError ? "✧" : "❦"}
+            </div>
+            <h2 style="
+                font-family:'Cinzel',serif;
+                color:#EBD49C;
+                font-weight:400;
+                margin-bottom:15px;
+            ">
+                ${isError ? "Invitation Notice" : "Your Invitation"}
+            </h2>
+            <p style="font-size:20px;line-height:1.7">
+                ${escapeHTML(message)}
+            </p>
+        </div>
+    `;
+}
+
+function hideInvitationStatus() {
+    document.getElementById("invitationStatus")?.remove();
+}
+
+/* DATE FORMATTING */
+
+function formatEventDate(dateValue) {
+    if (!dateValue) return "Date to be announced";
+
+    const parts = String(dateValue).split("-");
+    if (parts.length !== 3) return escapeHTML(dateValue);
+
+    const date = new Date(
+        Number(parts[0]),
+        Number(parts[1]) - 1,
+        Number(parts[2])
+    );
+
+    return date.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    }).toUpperCase();
+}
+
+function getEventTimestamp(event) {
+    if (!event.event_date) return null;
+
+    let hours = 19;
+    let minutes = 0;
+
+    const match = String(event.event_time || "").match(
+        /(\d{1,2}):(\d{2})\s*(AM|PM)/i
+    );
+
+    if (match) {
+        hours = Number(match[1]);
+        minutes = Number(match[2]);
+
+        if (match[3].toUpperCase() === "PM" && hours !== 12) {
+            hours += 12;
+        }
+
+        if (match[3].toUpperCase() === "AM" && hours === 12) {
+            hours = 0;
+        }
+    }
+
+    return new Date(
+        `${event.event_date}T${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:00+05:00`
+    ).getTime();
+}
+
+/* RENDER ONLY AUTHORIZED EVENTS */
+
+
+
+
+function renderGuestEvents(events) {
+    const grid = document.querySelector(".events-grid");
+
+    const eventThemes = {
+        mehndi: {
+            icon: "🌼 🪘 🌼",
+            subtitle: "A Celebration of Colours & Joy",
+            theme: "mehndi-theme"
+        },
+        nikah: {
+            icon: "☪ ✧ ❦ ✧",
+            subtitle: "A Sacred Bond of Love",
+            theme: "nikah-theme"
+        },
+        barat: {
+            icon: "👑 💍 👑",
+            subtitle: "The Royal Wedding Celebration",
+            theme: "barat-theme"
+        },
+        walima: {
+            icon: "✧ 🤍 ✧",
+            subtitle: "An Evening of Grace & Elegance",
+            theme: "walima-theme"
+        }
+    };
+
+    const eventOrder = ["nikah", "mehndi", "barat", "walima"];
+
+const sortedEvents = [...events].sort((a, b) => {
+    const indexA = eventOrder.indexOf(
+        String(a.event_name || "").trim().toLowerCase()
+    );
+
+    const indexB = eventOrder.indexOf(
+        String(b.event_name || "").trim().toLowerCase()
+    );
+
+    return (indexA === -1 ? 999 : indexA) -
+           (indexB === -1 ? 999 : indexB);
+});
+
+grid.innerHTML = sortedEvents.map(event => {
+
+        const posters = event.posters || [];
+        const firstPoster = posters.find(photo => photo.photo_url);
+
+        const eventKey = String(event.event_name || "")
+            .trim()
+            .toLowerCase();
+
+        const design = eventThemes[eventKey] || {
+            icon: "✧ ❦ ✧",
+            subtitle: "A Special Wedding Celebration",
+            theme: "default-theme"
+        };
+
+        const imageHTML = firstPoster
+            ? `<img src="${escapeHTML(firstPoster.photo_url)}"
+                    alt="${escapeHTML(event.event_name)} Poster"
+                    onerror="this.style.display='none';this.parentElement.classList.add('image-fallback');">`
+            : `
+                <div class="event-artwork">
+                    <div class="event-art-ornament">✧ ❦ ✧</div>
+                    <div class="event-art-icon">${design.icon}</div>
+                    <div class="event-art-title">${escapeHTML(event.event_name)}</div>
+                    <div class="event-art-subtitle">${escapeHTML(design.subtitle)}</div>
+                    <div class="event-art-ornament">✧ ❦ ✧</div>
+                </div>
+            `;
+
+        const location = [event.venue, event.address]
+            .filter(Boolean)
+            .join(", ");
+
+        const mapURL =
+            "https://www.google.com/maps/search/?api=1&query=" +
+            encodeURIComponent(location || "Lahore, Pakistan");
+
+        const invitationCategory =
+            event.invitation_category || "Not specified";
+
+        return `
+            <article class="event-card royal-event-card ${design.theme} reveal">
+
+                <div class="event-image ${firstPoster ? "has-photo" : "image-fallback"}">
+                    ${imageHTML}
+                </div>
+
+                <div class="event-info">
+
+                    <div class="event-card-heading">
+                        <span class="event-small-label">YOU ARE INVITED TO</span>
+
+                        <h3>${escapeHTML(event.event_name)}</h3>
+
+                        <div class="event-card-divider">✧ ━━━━━ ❦ ━━━━━ ✧</div>
+
+                        <p class="event-tagline">
+                            ${escapeHTML(design.subtitle)}
+                        </p>
+                    </div>
+
+                    <div class="event-details">
+
+                        <div class="event-detail-row">
+                            <span>✧</span>
+                            <p>${formatEventDate(event.event_date)}</p>
+                        </div>
+
+                        <div class="event-detail-row">
+                            <span>◷</span>
+                            <p>${escapeHTML(event.event_time || "Time to be announced")}</p>
+                        </div>
+
+                        <div class="event-detail-row">
+                            <span>⌖</span>
+                            <p>${escapeHTML(event.venue || "Venue to be announced")}</p>
+                        </div>
+
+                        <div class="event-detail-row">
+                            <span>✧</span>
+                            <p>${escapeHTML(event.address || "")}</p>
+                        </div>
+
+                    </div>
+
+                    <div class="invitation-category">
+                        <span>YOUR INVITATION</span>
+                        <strong>${escapeHTML(invitationCategory)}</strong>
+                    </div>
+
+                    <a class="map-link"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       href="${escapeHTML(mapURL)}">
+                        VIEW LOCATION ↗
+                    </a>
+
+                </div>
+            </article>
+        `;
+    }).join("");
+}
+
+
+
+
+/* UPDATE VENUE */
+
+function renderGuestVenue(event) {
+    const venueSection = document.querySelector(".venue-section");
+
+    if (!event) {
+        venueSection.style.display = "none";
+        return;
+    }
+
+    const venueCard = venueSection.querySelector(".venue-card");
+
+    const location = [event.venue, event.address]
+        .filter(Boolean)
+        .join(", ");
+
+    const mapURL = "https://www.google.com/maps/search/?api=1&query=" +
+        encodeURIComponent(location || "Lahore, Pakistan");
+
+    venueCard.innerHTML = `
+        <div class="ornament">⌖</div>
+
+        <h3>${escapeHTML(event.venue || "Venue to be announced")}</h3>
+
+        <p>${escapeHTML(event.address || "")}</p>
+
+        <p style="margin-top:15px;color:#D9C9A8">
+            ${formatEventDate(event.event_date)}
+            · ${escapeHTML(event.event_time || "")}
+        </p>
+
+        <a class="gold-button"
+           target="_blank"
+           rel="noopener"
+           href="${escapeHTML(mapURL)}">
+            GET DIRECTIONS
+        </a>
+    `;
+
+    venueSection.style.display = "block";
+}
+
+/* SHOW ONLY AUTHORIZED EVENT PHOTOS */
+
+
+function renderGuestGallery(galleryPhotos) {
+    const gallerySection = document.querySelector(".gallery-section");
+    const grid = document.querySelector(".gallery-grid");
+
+    const photos = (galleryPhotos || []).filter(photo =>
+        photo.photo_url
+    );
+
+    if (!photos.length) {
+        gallerySection.style.display = "none";
+        return;
+    }
+
+    gallerySection.style.display = "block";
+
+    const categories = [
+        "Dresses & Colour Theme",
+        "Hall & Ambience",
+        "Food & Menu",
+        "Decor & Arrangements"
+    ];
+
+    grid.innerHTML = categories.map(category => {
+        const categoryPhotos = photos.filter(photo =>
+            photo.gallery_category === category
+        );
+
+        if (!categoryPhotos.length) return "";
+
+        return `
+            <div style="
+                grid-column:1 / -1;
+                color:var(--gold-light);
+                font-family:'Cinzel',serif;
+                font-size:18px;
+                letter-spacing:2px;
+                margin:22px 0 5px;
+            ">
+                ${escapeHTML(category)}
+            </div>
+
+            ${categoryPhotos.map(photo => `
+                <div class="gallery-item"
+                     onclick="openGalleryImage(this)">
+                    <img
+                        src="${escapeHTML(photo.photo_url)}"
+                        alt="${escapeHTML(photo.caption || category)}"
+                        loading="lazy"
+                        onerror="this.parentElement.style.display='none';"
+                    >
+                </div>
+            `).join("")}
+        `;
+    }).join("");
+}
+
+/* =====================================
+   WEDDING ASSISTANCE CONTACTS
+===================================== */
+
+function renderGuestContacts(contacts) {
+    const section = document.getElementById("assistanceSection");
+    const container = document.getElementById("assistanceContacts");
+
+    const list = (contacts || []).filter(contact =>
+        contact.contact_name && contact.phone
+    );
+
+    if (!list.length) {
+        section.style.display = "none";
+        return;
+    }
+
+    section.style.display = "block";
+
+    container.innerHTML = list.map(contact => {
+        const phone = String(contact.phone).trim();
+        const dialNumber = phone.replace(/[^\d+]/g, "");
+
+        return `
+            <div class="assistance-contact-card">
+                <h3>${escapeHTML(contact.contact_name)}</h3>
+
+                <a href="tel:${escapeHTML(dialNumber)}">
+                    ☎ ${escapeHTML(phone)}
+                </a>
+            </div>
+        `;
+    }).join("");
+}
+
+
+
+/* COUNTDOWN */
+async function loadWeddingCountdown() {
+    const { data, error } = await window.weddingSupabase
+        .from("wedding_countdown_settings")
+        .select("end_at")
+        .eq("id", 1)
+        .single();
+
+    if (error) {
+        console.error("Countdown load error:", error);
+        return;
+    }
+
+    if (data && data.end_at) {
+        weddingDate = new Date(data.end_at).getTime();
+        updateCountdown();
+    }
+}
+function updateCountdown() {
+    const now = Date.now();
+    const distance = weddingDate - now;
+
+    if (distance <= 0) {
+        ["days", "hours", "minutes", "seconds"].forEach(id => {
+            document.getElementById(id).textContent = "00";
+        });
+        return;
+    }
+
+    const days = Math.floor(distance / 86400000);
+    const hours = Math.floor((distance % 86400000) / 3600000);
+    const minutes = Math.floor((distance % 3600000) / 60000);
+    const seconds = Math.floor((distance % 60000) / 1000);
+
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+    document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+    document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+}
+
+/* LOAD AND VERIFY PERSONAL INVITATION */
+
+async function loadGuestInvitation() {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+
+    if (!token) {
+        document.getElementById("welcome").style.display = "none";
+        document.getElementById("mainSite").style.display = "none";
+
+        showInvitationStatus(
+            "Please open your personal wedding invitation link to view your invitation.",
+            true
+        );
+        return;
+    }
+
+    showInvitationStatus("Please wait while we prepare your personal invitation...");
+
+    try {
+        if (!window.weddingSupabase) {
+            throw new Error("Website database connection is unavailable.");
+        }
+console.log("GUEST INVITATION FUNCTION STARTED");
+        const { data, error } = await window.weddingSupabase.functions.invoke(
+            "quick-function",
+            {
+                body: { token }
+            }
+        );
+        console.log("FUNCTION DATA:", data);
+console.log("FUNCTION ERROR:", error);
+
+        if (error) {
+            throw error;
+        }
+
+        if (!data || data.error || !Array.isArray(data.events) || !data.events.length) {
+            throw new Error("This invitation link is invalid or has no assigned events.");
+        }
+
+        guestData = data;
+        const guestName = String(data.guest_name || "").trim();
+
+const formattedName = guestName
+    .toLowerCase()
+    .replace(/\b\w/g, char => char.toUpperCase());
+
+document.getElementById("guestWelcomeName").textContent =
+    "Mr. & Mrs. " + formattedName;
+
+document.getElementById("guestWelcome").style.display = "block";
+
+allowedEvents = data.events;
+window.guestInvitation = data;
+
+renderGuestEvents(allowedEvents);
+renderGuestVenue(allowedEvents.length === 1 ? allowedEvents[0] : null);
+renderGuestGallery(data.gallery || []);
+renderGuestContacts(data.contacts || []);
+
+
+const eventChoice = document.getElementById("eventChoice");
+
+let options = '<option value="">Select your event</option>';
+
+const allEventNames = ["mehndi", "nikah", "barat", "walima"];
+
+const hasAllEvents = allEventNames.every(name =>
+    allowedEvents.some(event =>
+        String(event.event_name).trim().toLowerCase() === name
+    )
+);
+
+if (hasAllEvents) {
+    options += '<option value="__all_wedding_events__">All Wedding Events</option>';
+}
+
+options += allowedEvents.map(event => `
+    <option value="${escapeHTML(event.id)}">
+        ${escapeHTML(event.event_name)}
+    </option>
+`).join("");
+
+const nikahEvent = allowedEvents.find(e =>
+    String(e.event_name).toLowerCase() === "nikah"
+);
+
+const baratEvent = allowedEvents.find(e =>
+    String(e.event_name).toLowerCase() === "barat"
+);
+
+if (nikahEvent && baratEvent) {
+    options += '<option value="__nikah_barat_both__">Nikah + Barat (Both)</option>';
+}
+
+eventChoice.innerHTML = options;
+
+        if (allowedEvents.length === 1) {
+            const timestamp = getEventTimestamp(allowedEvents[0]);
+            if (timestamp) weddingDate = timestamp;
+        }
+
+        updateCountdown();
+
+        hideInvitationStatus();
+
+    } catch (error) {
+        console.error("Invitation loading error:", error);
+
+        document.getElementById("welcome").style.display = "none";
+        document.getElementById("mainSite").style.display = "none";
+
+        showInvitationStatus(
+            "This invitation link is invalid or could not be loaded. Please contact the wedding host for a valid link.",
+            true
+        );
+    }
+}
+
+/* OPEN WELCOME DOORS */
+
+function openInvitation() {
+    if (opened || !guestData) return;
+
+    opened = true;
+
+    const seal = document.getElementById("seal");
+    const scene = document.getElementById("scene");
+
+    seal.classList.add("break");
+
+    setTimeout(() => {
+        scene.classList.add("opened");
+    }, 500);
+
+    setTimeout(() => {
+        document.getElementById("welcome").style.display = "none";
+
+        const main = document.getElementById("mainSite");
+        main.classList.add("visible");
+
+        window.scrollTo(0, 0);
+        observeSections();
+
+    }, 3100);
+}
+
+/* MOBILE MENU */
+
+function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("show");
+}
+
+function closeMenu() {
+    document.getElementById("navLinks").classList.remove("show");
+}
+
+/* SCROLL ANIMATIONS */
+
+function observeSections() {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("active");
+            }
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach(element => {
+        observer.observe(element);
+    });
+}
+
+/* GALLERY PHOTO VIEWER */
+
+function openGalleryImage(item) {
+    const image = item.querySelector("img");
+
+    if (!image || !image.src) return;
+
+    const viewer = document.getElementById("galleryLightbox");
+
+    document.getElementById("galleryLightboxImage").src = image.src;
+    viewer.classList.add("show");
+    document.body.style.overflow = "hidden";
+}
+
+function closeGalleryImage() {
+    const viewer = document.getElementById("galleryLightbox");
+
+    if (!viewer) return;
+
+    viewer.classList.remove("show");
+    document.body.style.overflow = "";
+}
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") closeGalleryImage();
+});
+
+/* DEMO RSVP - DATABASE CONNECTION WILL BE ADDED SEPARATELY */
+
+
+document.getElementById("rsvpForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const form = this;
+    const button = form.querySelector('button[type="submit"]');
+
+    const token = new URLSearchParams(window.location.search).get("token");
+
+    if (!token) {
+        alert("Invitation token missing. Please open your personal invitation link.");
+        return;
+    }
+
+    const name = document.getElementById("guestName").value.trim();
+    const phone = document.getElementById("guestPhone").value.trim();
+    const attendance = document.getElementById("attendance").value;
+    const selectedEvent = document.getElementById("eventChoice").value;
+    const message = document.getElementById("guestMessage").value.trim();
+
+    const guestEvents = window.guestInvitation?.events || [];
+
+    
+let eventIds = [];
+
+if (selectedEvent === "__all_wedding_events__") {
+
+    const requiredEvents = ["mehndi", "nikah", "barat", "walima"];
+
+    eventIds = guestEvents
+        .filter(e =>
+            requiredEvents.includes(
+                String(e.event_name).trim().toLowerCase()
+            )
+        )
+        .map(e => e.id);
+
+    if (eventIds.length !== 4) {
+        alert("Your invitation does not include all four wedding events.");
+        return;
+    }
+
+} else if (selectedEvent === "__nikah_barat_both__") {
+
+    eventIds = guestEvents
+        .filter(e =>
+            ["nikah", "barat"].includes(
+                String(e.event_name).toLowerCase()
+            )
+        )
+        .map(e => e.id);
+
+    if (eventIds.length !== 2) {
+        alert("Your invitation does not include both Nikah and Barat.");
+        return;
+    }
+
+} else {
+
+    eventIds = guestEvents
+        .filter(e => String(e.id) === String(selectedEvent))
+        .map(e => e.id);
+}
+
+
+    if (!attendance) {
+        alert("Please select Accept or Decline.");
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "SUBMITTING...";
+
+    try {
+        const { data, error } = await window.weddingSupabase.functions.invoke(
+            "quick-function",
+            {
+                body: {
+                    action: "rsvp",
+                    token,
+                    name,
+                    phone,
+                    response: attendance,
+                    event_ids: eventIds,
+                    message
+                }
+            }
+        );
+
+        if (error) throw error;
+        if (!data?.success) {
+            throw new Error(data?.error || "Unable to submit RSVP.");
+        }
+
+        alert("Thank you, " + name + "! Your RSVP has been submitted successfully.");
+        form.reset();
+
+    } catch (error) {
+        console.error("RSVP submission error:", error);
+        alert(error.message || "Unable to submit RSVP. Please try again.");
+    } finally {
+        button.disabled = false;
+        button.textContent = "SUBMIT RSVP";
+    }
+});
+
+/* START */
+
+loadWeddingCountdown();
+setInterval(updateCountdown, 1000);
+
+loadGuestInvitation();
+</script>
+
+</body>
+</html>

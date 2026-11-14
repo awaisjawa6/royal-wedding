@@ -1,0 +1,1410 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Admin Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<style>
+:root {
+  --green:#092D25;
+  --green2:#164537;
+  --gold:#C6A15B;
+  --light:#EBD49C;
+  --ivory:#F5EBD8;
+  --rose:#A66D65;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Georgia,serif;
+  background:#f5f1e8;
+  color:#18372e;
+}
+header{
+  background:linear-gradient(135deg,var(--green),var(--green2));
+  color:var(--ivory);
+  padding:24px 5%;
+  border-bottom:3px solid var(--gold);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+header h1{margin:0;color:var(--light);font-size:25px}
+header p{margin:7px 0 0;font-size:13px}
+button{
+  border:0;
+  cursor:pointer;
+  padding:11px 17px;
+  border-radius:5px;
+  font-weight:bold;
+}
+.gold-btn{background:var(--gold);color:#172b22}
+.dark-btn{background:var(--green);color:white}
+.red-btn{background:#8e3939;color:white}
+.light-btn{background:#e9dfca;color:var(--green)}
+main{max-width:1100px;margin:30px auto;padding:0 18px}
+.panel{
+  background:white;
+  padding:25px;
+  margin-bottom:22px;
+  border:1px solid #e5d7b9;
+  border-radius:10px;
+  box-shadow:0 5px 20px #18372e0c;
+}
+h2{color:var(--green);margin-top:0}
+h3{color:var(--green)}
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  margin:7px 0 15px;
+  border:1px solid #d8c9aa;
+  border-radius:5px;
+  font:inherit;
+  background:#fffdf9;
+}
+label{font-weight:bold;font-size:14px}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+}
+.event-card,.guest-card,.photo-card{
+  border:1px solid #e5d7b9;
+  padding:16px;
+  border-radius:8px;
+  margin:12px 0;
+  background:#fffdf9;
+}
+.event-card p,.guest-card p{font-size:14px}
+.photo-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:13px;
+}
+.photo-card img{
+  width:100%;
+  height:145px;
+  object-fit:cover;
+  border-radius:5px;
+}
+.photo-card button{margin-top:8px}
+.checks{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:8px;
+  margin:10px 0 18px;
+}
+.checks label{
+  background:#f5f1e8;
+  padding:10px;
+  border-radius:5px;
+  font-weight:normal;
+}
+.checks input{width:auto;margin:0 7px 0 0}
+#dashboard{display:none}
+#loginBox{max-width:440px;margin:65px auto}
+#message{margin:12px 0;font-size:14px}
+.muted{color:#776e5e;font-size:13px}
+hr{border:0;border-top:1px solid #eadfc9;margin:22px 0}
+footer{text-align:center;padding:25px;color:#776e5e;font-size:13px}
+@media(max-width:600px){
+  header h1{font-size:20px}
+  .panel{padding:17px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div>
+    <h1>Royal Wedding · Admin</h1>
+    <p>Muhammad Awais · Wedding Management</p>
+  </div>
+  <button id="logoutBtn" class="gold-btn" style="display:none" onclick="logout()">Logout</button>
+</header>
+
+<main>
+
+<!-- ADMIN LOGIN -->
+<section id="loginBox" class="panel">
+  <h2>Administrator Login</h2>
+  <p class="muted">Sign in with your authorized wedding admin account.</p>
+
+  <form id="loginForm">
+    <label>Email Address</label>
+    <input id="email" type="email" required placeholder="Admin email">
+
+    <label>Password</label>
+    <input id="password" type="password" required placeholder="Password">
+
+    <button class="gold-btn" type="submit">LOGIN TO DASHBOARD</button>
+  </form>
+  <div id="message"></div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard">
+
+  <div class="panel">
+    <h2>Welcome, Administrator</h2>
+    <p class="muted">Manage your wedding events, photos and guest list.</p>
+  </div>
+
+  <!-- EVENTS -->
+  <div class="panel">
+    <h2>Wedding Events</h2>
+    <p class="muted">Edit event dates, times and venues.</p>
+    <div id="eventsList">Loading events...</div>
+
+    <hr>
+    <h3 id="eventFormTitle">Add / Edit Event</h3>
+    <form id="eventForm">
+      <input type="hidden" id="eventId">
+
+      <label>Event Name</label>
+      <select id="eventName" required>
+        <option value="Mehndi">Mehndi</option>
+        <option value="Nikah">Nikah</option>
+        <option value="Barat">Barat</option>
+        <option value="Walima">Walima</option>
+      </select>
+
+      <div class="grid">
+        <div>
+          <label>Date</label>
+          <input id="eventDate" type="date">
+        </div>
+        <div>
+          <label>Time</label>
+          <input id="eventTime" placeholder="7:00 PM onwards">
+        </div>
+      </div>
+
+      <label>Venue</label>
+      <input id="eventVenue" placeholder="Venue name">
+
+      <label>Address</label>
+      <input id="eventAddress" placeholder="Full address">
+
+      <label>Description</label>
+      <textarea id="eventDescription" rows="3" placeholder="Event details"></textarea>
+
+      <button class="gold-btn" type="submit">SAVE EVENT</button>
+      <button class="light-btn" type="button" onclick="resetEventForm()">CLEAR</button>
+    </form>
+  </div>
+
+  <!-- COUNTDOWN SETTINGS -->
+  <div class="panel">
+    <h2>Wedding Countdown Settings</h2>
+    <p class="muted">Set the date and time when the wedding countdown will end.</p>
+
+    <form id="countdownForm">
+      <label>Countdown End Date</label>
+      <input type="date" id="countdownDate" required>
+
+      <label>Countdown End Time</label>
+      <input type="time" id="countdownTime" required>
+
+      <button class="gold-btn" type="submit">SAVE COUNTDOWN</button>
+    </form>
+
+    <div id="countdownMessage" class="muted"></div>
+  </div>
+
+<div class="panel">
+    <h2>WEDDING ASSISTANCE CONTACTS</h2>
+    <p class="muted">
+        Add contact details that guests can call for assistance.
+    </p>
+
+    <form id="contactForm">
+        <label>Contact Person Name</label>
+        <input
+            type="text"
+            id="contactName"
+            placeholder="e.g. Wedding Coordinator"
+            required
+        >
+
+        <label>Mobile Number</label>
+        <input
+            type="tel"
+            id="contactPhone"
+            placeholder="e.g. +92 300 1234567"
+            required
+        >
+
+        <button type="submit" class="gold-btn">
+            ADD CONTACT
+        </button>
+    </form>
+
+    <div id="contactMessage" class="muted"></div>
+
+    <div id="contactsList"></div>
+</div>
+
+  <!-- PHOTO UPLOAD -->
+  <div class="panel">
+    <h2>Upload Photos</h2>
+    <p class="muted">Upload event pictures or general gallery pictures. You choose the photos.</p>
+
+    
+<form id="photoForm">
+
+  <label>Select Upload Type</label>
+  <select id="photoType">
+    <option value="gallery">Gallery Photo</option>
+    <option value="poster">Event Poster / Clipart</option>
+  </select>
+  <label>Gallery Category</label>
+<select id="galleryCategory">
+  <option value="">Select Gallery Category</option>
+  <option value="Dresses & Colour Theme">Dresses & Colour Theme</option>
+  <option value="Hall & Ambience">Hall & Ambience</option>
+  <option value="Food & Menu">Food & Menu</option>
+  <option value="Decor & Arrangements">Decor & Arrangements</option>
+</select>
+
+  <label>Select Event</label>
+  <select id="photoEvent">
+    <option value="">General Gallery</option>
+  </select>
+
+  <label>Photo Caption</label>
+  <input id="photoCaption" placeholder="Optional photo caption">
+
+  <label>Choose Photo / Poster</label>
+  <input id="photoFile" type="file" accept="image/*" required>
+
+  <button class="gold-btn" type="submit">UPLOAD PHOTO</button>
+
+</form>
+
+
+    <div id="photoMessage" class="muted"></div>
+    <hr>
+    <h3>Uploaded Photos</h3>
+    <div id="photosList" class="photo-grid">No photos loaded.</div>
+  </div>
+
+  <!-- GUEST MANAGEMENT -->
+  <div class="panel">
+    <h2>Guest Management</h2>
+    <p class="muted">Add guests and assign the events they are invited to.</p>
+
+    
+<form id="guestForm">
+
+    <label>Guest Title</label>
+    <select id="guestTitle" required>
+        <option value="">Select Title</option>
+        <option value="Mr.">Mr.</option>
+        <option value="Mrs.">Mrs.</option>
+    </select>
+
+    <label>Guest Name</label>
+    <input id="guestName" required placeholder="e.g. Tahir">
+
+    <label>WhatsApp / Phone Number</label>
+    <input id="guestPhone" placeholder="+92...">
+
+    <label>Guest Event Permissions</label>
+    <div id="guestEventChecks" class="checks"></div>
+
+    <button class="gold-btn" type="submit">ADD GUEST</button>
+
+</form>
+
+
+    <hr>
+    <h3>Guest List</h3>
+    <div id="guestsList">Loading guests...</div>
+  </div>
+
+  <!-- RSVP -->
+  <div class="panel">
+    <h2>RSVP Responses</h2>
+    <p class="muted">Guest responses received through the connected RSVP system.</p>
+    <div id="rsvpList">Loading responses...</div>
+  </div>
+
+</section>
+</main>
+
+<footer>Royal Wedding Invitation · Private Administration</footer>
+
+<script>
+const db = window.weddingSupabase;
+
+const $ = id => document.getElementById(id);
+
+let events = [];
+
+function showMessage(message, isError=false) {
+  $("message").textContent = message;
+  $("message").style.color = isError ? "#a22" : "#17613d";
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[char]);
+}
+
+async function startDashboard() {
+  if (!db) {
+    showMessage("Supabase connection missing. Check supabase.js.", true);
+    return;
+  }
+
+  const {data:{session}} = await db.auth.getSession();
+
+  if (!session) {
+    $("loginBox").style.display = "block";
+    $("dashboard").style.display = "none";
+    $("logoutBtn").style.display = "none";
+    return;
+  }
+
+  const {data:admin, error} = await db
+    .from("wedding_admins")
+    .select("user_id")
+    .eq("user_id", session.user.id)
+    .maybeSingle();
+
+  if (error || !admin) {
+    await db.auth.signOut();
+    showMessage("This account is not authorized as a wedding administrator.", true);
+    return;
+  }
+
+  $("loginBox").style.display = "none";
+  $("dashboard").style.display = "block";
+  $("logoutBtn").style.display = "inline-block";
+
+  await loadAll();
+}
+
+$("loginForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  showMessage("Signing in...");
+
+  const {error} = await db.auth.signInWithPassword({
+    email:$("email").value.trim(),
+    password:$("password").value
+  });
+
+  if (error) {
+    showMessage(error.message, true);
+    return;
+  }
+
+  await startDashboard();
+});
+
+async function logout() {
+  await db.auth.signOut();
+  location.reload();
+}
+
+
+/* =====================================
+   WEDDING ASSISTANCE CONTACTS
+===================================== */
+
+async function loadContacts() {
+    const { data, error } = await db
+        .from("wedding_contacts")
+        .select("*")
+        .order("display_order", { ascending: true })
+        .order("created_at", { ascending: true });
+
+    if (error) {
+        $("contactsList").textContent = error.message;
+        return;
+    }
+
+    $("contactsList").innerHTML = (data || []).map(contact => {
+        const dialNumber = String(contact.phone || "")
+            .replace(/[^\d+]/g, "");
+
+        return `
+            <div class="photo-card">
+                <p><strong>${escapeHTML(contact.contact_name)}</strong></p>
+                <p>${escapeHTML(contact.phone)}</p>
+
+                <button
+                    class="red-btn"
+                    onclick="deleteContact('${contact.id}')">
+                    DELETE
+                </button>
+            </div>
+        `;
+    }).join("") || "No assistance contacts added yet.";
+}
+
+
+// ADD CONTACT
+
+$("contactForm").addEventListener("submit", async e => {
+    e.preventDefault();
+
+    const name = $("contactName").value.trim();
+    const phone = $("contactPhone").value.trim();
+
+    if (!name || !phone) {
+        alert("Please enter contact name and number.");
+        return;
+    }
+
+    $("contactMessage").textContent = "Saving contact...";
+
+    const { error } = await db
+        .from("wedding_contacts")
+        .insert({
+            contact_name: name,
+            phone: phone
+        });
+
+    if (error) {
+        $("contactMessage").textContent = error.message;
+        return;
+    }
+
+    $("contactMessage").textContent =
+        "Contact added successfully!";
+
+    $("contactForm").reset();
+
+    await loadContacts();
+});
+
+
+// DELETE CONTACT
+
+async function deleteContact(id) {
+    if (!confirm("Are you sure you want to delete this contact?")) {
+        return;
+    }
+
+    const { error } = await db
+        .from("wedding_contacts")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+        alert("Unable to delete contact: " + error.message);
+        return;
+    }
+
+    await loadContacts();
+}
+
+
+async function loadAll() {
+  await loadEvents();
+  await loadCountdown();
+  await loadPhotos();
+  await loadGuests();
+  await loadRSVPs();
+  await loadContacts();
+}
+
+
+// =====================================
+// WEDDING COUNTDOWN SETTINGS
+// =====================================
+
+async function loadCountdown() {
+  const { data, error } = await db
+    .from("wedding_countdown_settings")
+    .select("end_at")
+    .eq("id", 1)
+    .single();
+
+  if (error) {
+    $("countdownMessage").textContent =
+      "Unable to load countdown: " + error.message;
+    return;
+  }
+
+  if (data && data.end_at) {
+    const date = new Date(data.end_at);
+
+    const parts = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Karachi",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    }).formatToParts(date);
+
+    const getPart = type =>
+      parts.find(part => part.type === type)?.value;
+
+    $("countdownDate").value =
+      `${getPart("year")}-${getPart("month")}-${getPart("day")}`;
+
+    $("countdownTime").value =
+      new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Asia/Karachi",
+        hour: "2-digit",
+        minute: "2-digit",
+        hourCycle: "h23"
+      }).format(date);
+
+    $("countdownMessage").textContent =
+      "Current countdown date loaded successfully.";
+  }
+}
+
+$("countdownForm").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const date = $("countdownDate").value;
+  const time = $("countdownTime").value;
+
+  if (!date || !time) {
+    alert("Please select both date and time.");
+    return;
+  }
+
+  const endAt = new Date(
+    `${date}T${time}:00+05:00`
+  );
+
+  if (Number.isNaN(endAt.getTime())) {
+    alert("Invalid date or time.");
+    return;
+  }
+
+  if (endAt.getTime() <= Date.now()) {
+    alert("Please select a future date and time.");
+    return;
+  }
+
+  $("countdownMessage").textContent = "Saving countdown...";
+
+  const { error } = await db
+    .from("wedding_countdown_settings")
+    .upsert({
+      id: 1,
+      end_at: endAt.toISOString(),
+      updated_at: new Date().toISOString()
+    }, {
+      onConflict: "id"
+    });
+
+  if (error) {
+    $("countdownMessage").textContent =
+      "Error: " + error.message;
+    return;
+  }
+
+  $("countdownMessage").textContent =
+    "Countdown date and time saved successfully!";
+
+  alert("Countdown updated successfully!");
+});
+
+
+async function loadEvents() {
+  const {data,error} = await db
+    .from("wedding_events")
+    .select("*")
+    .order("event_date");
+
+  if (error) {
+    $("eventsList").textContent = error.message;
+    return;
+  }
+
+  events = data || [];
+
+  $("eventsList").innerHTML = events.map(ev => `
+    <div class="event-card">
+      <h3>${escapeHTML(ev.event_name)}</h3>
+      <p>${escapeHTML(ev.event_date || "Date not set")} · ${escapeHTML(ev.event_time || "")}</p>
+      <p>${escapeHTML(ev.venue || "")} ${escapeHTML(ev.address || "")}</p>
+      <button class="dark-btn" onclick="editEvent('${ev.id}')">EDIT</button>
+    </div>
+  `).join("") || "No events found.";
+
+  $("photoEvent").innerHTML =
+    '<option value="">General Gallery</option>' +
+    events.map(ev => `<option value="${ev.id}">${escapeHTML(ev.event_name)}</option>`).join("");
+
+  $("guestEventChecks").innerHTML = events.map(ev => `
+    <label>
+      <input type="checkbox" value="${ev.id}">
+      ${escapeHTML(ev.event_name)}
+    </label>
+  `).join("");
+}
+
+function editEvent(id) {
+  const ev = events.find(item => item.id === id);
+  if (!ev) return;
+
+  $("eventId").value = ev.id;
+  $("eventName").value = ev.event_name;
+  $("eventDate").value = ev.event_date || "";
+  $("eventTime").value = ev.event_time || "";
+  $("eventVenue").value = ev.venue || "";
+  $("eventAddress").value = ev.address || "";
+  $("eventDescription").value = ev.description || "";
+  $("eventFormTitle").textContent = "Edit " + ev.event_name;
+  $("eventForm").scrollIntoView({behavior:"smooth"});
+}
+
+function resetEventForm() {
+  $("eventForm").reset();
+  $("eventId").value = "";
+  $("eventFormTitle").textContent = "Add / Edit Event";
+}
+
+$("eventForm").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const id = $("eventId").value;
+  const record = {
+    event_name:$("eventName").value,
+    event_date:$("eventDate").value || null,
+    event_time:$("eventTime").value.trim(),
+    venue:$("eventVenue").value.trim(),
+    address:$("eventAddress").value.trim(),
+    description:$("eventDescription").value.trim()
+  };
+
+  let result;
+
+  if (id) {
+    result = await db.from("wedding_events").update(record).eq("id",id);
+  } else {
+    result = await db.from("wedding_events").insert(record);
+  }
+
+  if (result.error) {
+    alert("Could not save event: " + result.error.message);
+    return;
+  }
+
+  alert("Event saved successfully.");
+  resetEventForm();
+  await loadEvents();
+});
+
+
+
+$("photoForm").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const file = $("photoFile").files[0];
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    alert("Please select an image file.");
+    return;
+  }
+
+  const photoType = $("photoType").value;
+  const eventId = $("photoEvent").value;
+  const galleryCategory = $("galleryCategory").value;
+
+  if (photoType === "poster" && !eventId) {
+    alert("Please select an event for the poster.");
+    return;
+  }
+
+  if (photoType === "gallery" && !galleryCategory) {
+    alert("Please select a gallery category.");
+    return;
+  }
+
+  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+  const path = `${Date.now()}_${safeName}`;
+
+  $("photoMessage").textContent = "Uploading...";
+
+  const { error: uploadError } = await db.storage
+    .from("wedding-photos")
+    .upload(path, file, { upsert: false });
+
+  if (uploadError) {
+    $("photoMessage").textContent = uploadError.message;
+    return;
+  }
+
+  const { error: rowError } = await db.from("event_photos").insert({
+    event_id: eventId || null,
+    photo_url: path,
+    caption: $("photoCaption").value.trim(),
+    photo_type: photoType,
+    gallery_category: photoType === "gallery" ? galleryCategory : null
+  });
+
+  if (rowError) {
+    await db.storage.from("wedding-photos").remove([path]);
+    $("photoMessage").textContent = rowError.message;
+    return;
+  }
+
+  $("photoMessage").textContent =
+    photoType === "poster"
+      ? "Event poster uploaded successfully."
+      : "Gallery photo uploaded successfully.";
+
+  $("photoForm").reset();
+
+  await loadPhotos();
+});
+
+async function loadPhotos() {
+  const {data,error} = await db
+    .from("event_photos")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+  if (error) {
+    $("photosList").textContent = error.message;
+    return;
+  }
+
+  const cards = await Promise.all((data || []).map(async photo => {
+    const {data:signed,error:signedError} = await db.storage
+      .from("wedding-photos")
+      .createSignedUrl(photo.photo_url,3600);
+
+    if (signedError) return "";
+
+    return `
+      <div class="photo-card">
+        <img src="${signed.signedUrl}" alt="Wedding photo">
+        <p>${escapeHTML(photo.caption || "Wedding photo")}</p>
+        <button class="red-btn" onclick="deletePhoto('${photo.id}','${escapeHTML(photo.photo_url)}')">DELETE</button>
+      </div>
+    `;
+  }));
+
+  $("photosList").innerHTML = cards.join("") || "No photos uploaded yet.";
+}
+
+async function deletePhoto(id,path) {
+  if (!confirm("Delete this photo permanently?")) return;
+
+  const {error:storageError} = await db.storage
+    .from("wedding-photos").remove([path]);
+
+  if (storageError) {
+    alert(storageError.message);
+    return;
+  }
+
+  const {error} = await db.from("event_photos").delete().eq("id",id);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  await loadPhotos();
+}
+
+
+$("guestForm").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const selectedEvents = [
+    ...$("guestEventChecks").querySelectorAll("input:checked")
+  ].map(input => input.value);
+
+  if (!selectedEvents.length) {
+    alert("Please select at least one event for this guest.");
+    return;
+  }
+
+  // Select a separate invitation category for every event
+  const permissions = [];
+
+  for (const eventId of selectedEvents) {
+    const event = events.find(ev => ev.id === eventId);
+    const eventName = event ? event.event_name : "Selected Event";
+
+    const category = prompt(
+      "Invitation category for " + eventName +
+      "\n\nEnter:\n1 = 1 Person\n2 = 2 Persons\n3 = 3 Persons\n4 = 4 Persons\nF = With Family"
+    );
+
+    if (category === null) {
+      alert("Guest creation cancelled. No guest has been added.");
+      return;
+    }
+
+    const choice = category.trim().toUpperCase();
+
+    const categoryNames = {
+      "1": "1 Person",
+      "2": "2 Persons",
+      "3": "3 Persons",
+      "4": "4 Persons",
+      "F": "With Family"
+    };
+
+    if (!categoryNames[choice]) {
+      alert("Invalid selection. Please start again and enter 1, 2, 3, 4 or F.");
+      return;
+    }
+
+    permissions.push({
+      event_id: eventId,
+      invitation_category: categoryNames[choice]
+    });
+  }
+
+  // Save guest
+  const { data: guest, error } = await db
+    .from("wedding_guests")
+    .insert({
+  guest_title: $("guestTitle").value,
+  guest_name: $("guestName").value.trim(),
+  phone: $("guestPhone").value.trim()
+})
+    .select()
+    .single();
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  // Save event permissions with separate categories
+  const permissionRows = permissions.map(item => ({
+    guest_id: guest.id,
+    event_id: item.event_id,
+    invitation_category: item.invitation_category
+  }));
+
+  const { error: permissionError } = await db
+    .from("guest_event_access")
+    .insert(permissionRows);
+
+  if (permissionError) {
+    alert(
+      "Guest created, but event permissions could not be saved: " +
+      permissionError.message +
+      "\nPlease do not add the guest again. Contact the administrator."
+    );
+    return;
+  }
+
+  alert("Guest and event-wise invitation categories saved successfully!");
+
+  $("guestForm").reset();
+  await loadGuests();
+});
+
+
+
+
+
+
+async function loadGuests() {
+  const { data, error } = await db
+    .from("wedding_guests")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    $("guestsList").textContent = error.message;
+    return;
+  }
+
+  const rows = await Promise.all((data || []).map(async guest => {
+    const { data: access, error: accessError } = await db
+      .from("guest_event_access")
+      .select("event_id, invitation_category")
+      .eq("guest_id", guest.id);
+
+    if (accessError) {
+      console.error("Guest event access error:", accessError.message);
+    }
+
+    const eventDetails = (access || []).map(a => {
+      const eventName = events.find(ev => ev.id === a.event_id)?.event_name;
+      if (!eventName) return "";
+      return eventName + " — " + (a.invitation_category || "Not Assigned");
+    }).filter(Boolean);
+
+    const invitationUrl = new URL("index.html", window.location.href);
+    invitationUrl.searchParams.set("token", guest.access_token || "");
+    const link = invitationUrl.toString();
+
+    
+const guestTitle = guest.guest_title || "Mr.";
+const guestName = String(guest.guest_name || "").trim();
+
+const whatsappMessage =
+    "Assalam-o-Alaikum " + guestTitle + " " + guestName + "!\n\n" +
+    "With immense pleasure, we cordially invite you to celebrate " +
+    "the wedding festivities of Muhammad Awais.\n\n" +
+    "Your presence and blessings would make this joyous occasion " +
+    "even more special.\n\n" +
+    "💌 YOUR PERSONAL WEDDING INVITATION\n\n" +
+    "Please open your personal invitation using the link below:\n" +
+    link + "\n\n" +
+    "Warm regards,\n" +
+    "Wedding Family";
+
+let whatsappNumber = String(guest.phone || "").replace(/\D/g, "");
+
+if (whatsappNumber.startsWith("0092")) {
+    whatsappNumber = whatsappNumber.slice(2);
+} else if (whatsappNumber.startsWith("0")) {
+    whatsappNumber = "92" + whatsappNumber.slice(1);
+} else if (!whatsappNumber.startsWith("92")) {
+    whatsappNumber = "92" + whatsappNumber;
+}
+
+const whatsappUrl = "https://wa.me/" +
+    whatsappNumber +
+    "?text=" + encodeURIComponent(whatsappMessage);
+
+
+    return `
+      <div class="guest-card">
+        <strong>${escapeHTML(guest.guest_name)}</strong>
+
+        <p>${escapeHTML(guest.phone || "No phone number")}</p>
+
+        <p><strong>Event-wise Invitation:</strong></p>
+
+        <div style="margin:10px 0;padding:12px;background:#f5ebd8;border-radius:8px">
+          ${eventDetails.length
+            ? eventDetails.map(detail => `
+                <p style="margin:6px 0;color:#092D25">
+                  ${escapeHTML(detail)}
+                </p>
+              `).join("")
+            : "No events assigned"}
+        </div>
+
+        <input
+          type="text"
+          readonly
+          value="${escapeHTML(link)}"
+          style="font-size:12px"
+        >
+
+        <button class="gold-btn"
+          onclick="copyInvitationLink('${escapeHTML(link)}')">
+          COPY INVITATION LINK
+        </button>
+
+        ${guest.phone ? `
+          
+<a class="dark-btn"
+   href="${escapeHTML(whatsappUrl)}"
+   target="_blank"
+   rel="noopener noreferrer"
+   style="
+     display:inline-block;
+     padding:9px 18px;
+     box-sizing:border-box;
+     line-height:normal;
+     font:inherit;
+     font-weight:600;
+     text-align:center;
+     text-decoration:none;
+     vertical-align:middle;
+     border-radius:6px;
+   ">
+   SEND ON WHATSAPP
+</a>
+
+        ` : ""}
+
+        <button class="red-btn"
+          onclick="deleteGuest('${guest.id}')">
+          DELETE GUEST
+        </button>
+      </div>
+    `;
+  }));
+
+  $("guestsList").innerHTML = rows.join("") || "No guests added yet.";
+}
+
+
+
+async function deleteGuest(id) {
+
+  const confirmed = confirm(
+    "Are you sure you want to permanently delete this guest? Their event permissions and RSVP responses will also be deleted. Their invitation link will stop working."
+  );
+
+  if (!confirmed) return;
+
+  // Delete guest RSVP responses
+  const { error: rsvpError } = await db
+    .from("wedding_rsvps")
+    .delete()
+    .eq("guest_id", id);
+
+  if (rsvpError) {
+    alert("Could not delete guest RSVP records: " + rsvpError.message);
+    return;
+  }
+
+  // Delete assigned event permissions
+  const { error: accessError } = await db
+    .from("guest_event_access")
+    .delete()
+    .eq("guest_id", id);
+
+  if (accessError) {
+    alert("Could not delete guest permissions: " + accessError.message);
+    return;
+  }
+
+  // Delete guest record
+  const { error } = await db
+    .from("wedding_guests")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    alert("Could not delete guest: " + error.message);
+    return;
+  }
+
+  alert("Guest deleted successfully.");
+
+  await loadGuests();
+  await loadRSVPs();
+}
+async function copyInvitationLink(link) {
+  try {
+    await navigator.clipboard.writeText(link);
+    alert("Invitation link copied successfully!");
+  } catch (error) {
+    prompt("Copy your invitation link:", link);
+  }
+}
+
+
+
+async function loadRSVPs() {
+  const { data, error } = await db
+    .from("wedding_rsvps")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    $("rsvpList").textContent = error.message;
+    return;
+  }
+
+  const { data: guests, error: guestError } = await db
+    .from("wedding_guests")
+    .select("id, guest_name, phone");
+
+  if (guestError) {
+    $("rsvpList").textContent = guestError.message;
+    return;
+  }
+
+  const guestMap = {};
+  (guests || []).forEach(g => {
+    guestMap[g.id] = g;
+  });
+
+  window.weddingRsvpRows = (data || []).map(r => {
+    const guest = guestMap[r.guest_id] || {};
+
+    return {
+      id: r.id,
+      guest: guest.guest_name || "Guest",
+      phone: guest.phone || "",
+      event: events.find(ev => ev.id === r.event_id)?.event_name || "Event",
+      response: r.response,
+      persons: r.attendance_type || "Not Assigned",
+      message: r.guest_message || "",
+      created_at: r.created_at
+        ? new Date(r.created_at).toLocaleString("en-PK")
+        : ""
+    };
+  });
+
+  const rows = window.weddingRsvpRows;
+
+  $("rsvpList").innerHTML = `
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px">
+      <button class="dark-btn" onclick="loadRSVPs()">
+        REFRESH RESPONSES
+      </button>
+      <button class="gold-btn" onclick="exportRSVPsCSV()">
+        EXPORT TO EXCEL
+      </button>
+    </div>
+
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;min-width:1100px">
+        <thead>
+          <tr style="background:#092D25;color:#EBD49C">
+            <th style="padding:12px">Guest Name</th>
+            <th style="padding:12px">Contact</th>
+            <th style="padding:12px">Event</th>
+            <th style="padding:12px">Response</th>
+            <th style="padding:12px">Attendance Category</th>
+            <th style="padding:12px">Guest Message</th>
+            <th style="padding:12px">Submission Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map(r => `
+            <tr style="border-bottom:1px solid #ddd;text-align:center">
+              <td style="padding:12px">${escapeHTML(r.guest)}</td>
+              <td style="padding:12px">${escapeHTML(r.phone)}</td>
+              <td style="padding:12px">${escapeHTML(r.event)}</td>
+              <td style="padding:12px">${escapeHTML(r.response)}</td>
+
+              <td style="padding:12px">
+                <select
+                  onchange="updateRSVPAttendance('${r.id}', this.value)"
+                  style="padding:8px;border:1px solid #C6A15B;border-radius:6px"
+                >
+                  <option value="" ${r.persons === "Not Assigned" ? "selected" : ""}>Select</option>
+                  <option value="1 Person" ${r.persons === "1 Person" ? "selected" : ""}>1 Person</option>
+                  <option value="2 Persons" ${r.persons === "2 Persons" ? "selected" : ""}>2 Persons</option>
+                  <option value="With Family" ${r.persons === "With Family" ? "selected" : ""}>With Family</option>
+                </select>
+              </td>
+
+              <td style="padding:12px">${escapeHTML(r.message)}</td>
+              <td style="padding:12px">${escapeHTML(r.created_at)}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+
+    ${rows.length === 0
+      ? '<p style="text-align:center;padding:20px">No RSVP responses received yet.</p>'
+      : ''}
+  `;
+}
+
+async function updateRSVPAttendance(id, value) {
+  const { error } = await db
+    .from("wedding_rsvps")
+    .update({ attendance_type: value || null })
+    .eq("id", id);
+
+  if (error) {
+    alert("Unable to update attendance category: " + error.message);
+    return;
+  }
+
+  const row = (window.weddingRsvpRows || []).find(r => r.id === id);
+
+  if (row) {
+    row.persons = value || "Not Assigned";
+  }
+
+  alert("Attendance category saved successfully!");
+}
+
+
+
+function exportRSVPsCSV() {
+  const rows = window.weddingRsvpRows || [];
+
+  if (!rows.length) {
+    alert("No RSVP responses available to export.");
+    return;
+  }
+
+  if (typeof XLSX === "undefined") {
+    alert("Excel library not loaded. Please refresh the page.");
+    return;
+  }
+
+  const date = new Date().toLocaleString("en-PK");
+
+  const excelRows = rows.map((r, i) => ({
+    "S.No.": i + 1,
+    "Guest Name": r.guest || "",
+    "Event": r.event || "",
+    "RSVP Status": r.response || "",
+    "Attendance Category": r.persons || "Not Assigned",
+    "Contact Number": r.phone || "",
+    "Guest Message": r.message || "",
+    "Submission Date": r.created_at || ""
+  }));
+
+  const acceptCount = rows.filter(r =>
+    ["Accept", "attending"].includes(r.response)
+  ).length;
+
+  const declineCount = rows.filter(r =>
+    ["Decline", "not_attending"].includes(r.response)
+  ).length;
+
+  const wb = XLSX.utils.book_new();
+
+  // RSVP DETAILS SHEET
+  const ws = XLSX.utils.json_to_sheet(excelRows, {
+    origin: "A5"
+  });
+
+  ws["!cols"] = [
+    { wch: 8 },
+    { wch: 25 },
+    { wch: 18 },
+    { wch: 18 },
+    { wch: 24 },
+    { wch: 20 },
+    { wch: 35 },
+    { wch: 24 }
+  ];
+
+  ws["!rows"] = [
+    { hpt: 32 },
+    { hpt: 24 },
+    { hpt: 22 },
+    { hpt: 10 }
+  ];
+
+  XLSX.utils.sheet_add_aoa(ws, [
+    ["ROYAL WEDDING — RSVP REPORT"],
+    ["Muhammad Awais Wedding Celebration"],
+    [`Generated: ${date}`],
+    [""]
+  ], { origin: "A1" });
+
+  const range = XLSX.utils.decode_range(ws["!ref"]);
+
+  for (let R = 0; R <= range.e.r; R++) {
+    for (let C = 0; C <= range.e.c; C++) {
+      const cellRef = XLSX.utils.encode_cell({ r: R, c: C });
+      if (!ws[cellRef]) continue;
+
+      if (R === 0) {
+        ws[cellRef].s = {
+          font: { bold: true, color: { rgb: "FFFFFF" }, sz: 18 },
+          fill: { fgColor: { rgb: "092D25" } },
+          alignment: { horizontal: "center", vertical: "center" }
+        };
+      } else if (R === 1) {
+        ws[cellRef].s = {
+          font: { bold: true, color: { rgb: "C6A15B" }, sz: 13 },
+          fill: { fgColor: { rgb: "164537" } },
+          alignment: { horizontal: "center" }
+        };
+      } else if (R === 4) {
+        ws[cellRef].s = {
+          font: { bold: true, color: { rgb: "FFFFFF" } },
+          fill: { fgColor: { rgb: "164537" } },
+          alignment: { horizontal: "center", vertical: "center", wrapText: true },
+          border: {
+            bottom: { style: "thin", color: { rgb: "C6A15B" } }
+          }
+        };
+      } else if (R >= 5) {
+        ws[cellRef].s = {
+          font: { color: { rgb: "26352F" }, sz: 10 },
+          fill: {
+            fgColor: { rgb: R % 2 === 0 ? "F5EBD8" : "FFFFFF" }
+          },
+          alignment: { vertical: "center", wrapText: true },
+          border: {
+            bottom: { style: "thin", color: { rgb: "E5D9C4" } }
+          }
+        };
+      }
+    }
+  }
+
+  ws["!merges"] = [
+    { s: { r: 0, c: 0 }, e: { r: 0, c: 7 } },
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 7 } },
+    { s: { r: 2, c: 0 }, e: { r: 2, c: 7 } }
+  ];
+
+  ws["!autofilter"] = {
+    ref: `A5:H${range.e.r + 1}`
+  };
+
+  XLSX.utils.book_append_sheet(wb, ws, "RSVP Details");
+
+  // SUMMARY SHEET
+  const summary = [
+    ["ROYAL WEDDING — RSVP SUMMARY"],
+    ["Muhammad Awais Wedding Celebration"],
+    [""],
+    ["Total Responses", rows.length],
+    ["Joyfully Accept", acceptCount],
+    ["Regretfully Decline", declineCount],
+    ["Report Generated", date]
+  ];
+
+  const sumWs = XLSX.utils.aoa_to_sheet(summary);
+
+  sumWs["!cols"] = [
+    { wch: 28 },
+    { wch: 30 }
+  ];
+
+  sumWs["!merges"] = [
+    { s: { r: 0, c: 0 }, e: { r: 0, c: 1 } },
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 1 } }
+  ];
+
+  ["A1", "A2"].forEach((cell, i) => {
+    sumWs[cell].s = {
+      font: {
+        bold: true,
+        color: { rgb: i === 0 ? "FFFFFF" : "C6A15B" },
+        sz: i === 0 ? 18 : 13
+      },
+      fill: {
+        fgColor: { rgb: i === 0 ? "092D25" : "164537" }
+      },
+      alignment: { horizontal: "center", vertical: "center" }
+    };
+  });
+
+  for (let R = 3; R <= 6; R++) {
+    ["A", "B"].forEach(col => {
+      const cell = sumWs[`${col}${R + 1}`];
+      if (cell) {
+        cell.s = {
+          font: { bold: true, color: { rgb: "26352F" } },
+          fill: { fgColor: { rgb: "F5EBD8" } },
+          alignment: { vertical: "center" }
+        };
+      }
+    });
+  }
+
+  XLSX.utils.book_append_sheet(wb, sumWs, "Summary");
+
+  XLSX.writeFile(wb, "Royal-Wedding-RSVP-Report.xlsx");
+}
+
+
+
+startDashboard();
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
+</body>
+</html>
